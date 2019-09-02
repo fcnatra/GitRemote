@@ -17,6 +17,7 @@ namespace GitRemote.Domain
             IGitOperation operation = operationFactory.CreateOperation(expectedOperation);
             operation.OperationParameters = OperationParameters;
             operation?.Run();
+            operation?.PrintResults();
         }
     }
 }

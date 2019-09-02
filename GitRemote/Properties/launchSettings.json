@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GitRemote": {
+      "commandName": "Project",
+      "commandLineArgs": "-ListProjects -GitApiUrl:https://git.ekasa.local/api/v4 -GitToken:ecSyM4Xxs16oXyz8dAyK -GroupName:Applications"
+    }
+  }
+}

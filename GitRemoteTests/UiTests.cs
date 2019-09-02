@@ -1,4 +1,6 @@
+using FakeItEasy;
 using GitRemote.Domain;
+using GitRemote.Domain.Operations;
 using GitRemote.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -49,7 +51,7 @@ namespace GitRemoteTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void OperationListProjects_ThrowsExceptionIfParametersAreNotValid()
+        public void OperationListProjects_ThrowsExceptionIfMissingOneParameter()
         {
             var ui = new UI()
             {
@@ -65,13 +67,13 @@ namespace GitRemoteTests
 
             var expectedOperation = (Operation)Enum.Parse(typeof(GitRemote.Domain.Operation), parameters.Operation);
 
-            var git = new GitToolsClient();
+            var git = new GitClient();
             git.Run(expectedOperation);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void OperationListProjects_ValidatesAllNeededParameters()
+        public void OperationListProjects_RunsCorrespondingOperation()
         {
             var ui = new UI()
             {
@@ -83,12 +85,20 @@ namespace GitRemoteTests
                     $"-ListProjects"
                 }
             };
-            Parameters parameters = ui.ProcessArguments();
 
+            var fakeOperation = A.Fake<IGitOperation>();
+
+            var fakeOperationFactory = A.Fake<IOperationFactory>();
+            A.CallTo(() => fakeOperationFactory.CreateOperation(Operation.ListProjects)).Returns(fakeOperation);
+
+            Parameters parameters = ui.ProcessArguments();
             var expectedOperation = (Operation)Enum.Parse(typeof(GitRemote.Domain.Operation), parameters.Operation);
 
-            var git = new GitToolsClient();
+            var git = new GitClient();
+
             git.Run(expectedOperation);
+
+            A.CallTo(() => fakeOperation.Run()).MustHaveHappenedOnceExactly();
         }
     }
 }

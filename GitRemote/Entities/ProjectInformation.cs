@@ -6,5 +6,6 @@ namespace GitRemote.Entities
 {
     public class ProjectInformation
     {
+        public string WebUrl { get; set; }
     }
 }

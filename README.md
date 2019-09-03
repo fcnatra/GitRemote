@@ -14,6 +14,5 @@ To do so, redirect the output to a file and use it as input source to the batch 
 <b>Sample:</b>
 <br/><code>
 dotnet GitRemote.dll -GitApiUrl:TheUrl -GitToken:TheToken -GroupName:TheGroup -ListProjects > projectList.txt
-
 SearchInCode "text1 or text2" | projectList.txt
 </code>

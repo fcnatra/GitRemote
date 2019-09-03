@@ -1,4 +1,5 @@
 ﻿using GitRemote.Domain.Operations;
+using GitRemote.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,17 +8,33 @@ namespace GitRemote.Domain
 {
     public class GitClient
     {
-        public IOperationFactory OperationFactory { get; set; }
-
+        public IGitConnector GitConnector { get; set; }
+        private IOperationFactory _operationFactory;
+        public IOperationFactory OperationFactory {
+            get
+            {
+                if (_operationFactory is null)
+                    _operationFactory = new OperationFactory();
+                return _operationFactory;
+            }
+            set
+            {
+                _operationFactory = value;
+            }
+        }
         public Entities.Parameters OperationParameters { get; set; }
 
-        public void Run(Operation expectedOperation)
+        public IGitOperation Run(OperationType operationType)
         {
-            var operationFactory = new OperationFactory();
-            IGitOperation operation = operationFactory.CreateOperation(expectedOperation);
+            IGitOperation operation = OperationFactory.CreateOperation(operationType);
+
+            operation.GitConnector = GitConnector;
             operation.OperationParameters = OperationParameters;
             operation?.Run();
-            operation?.PrintResults();
+            
+            //operation?.PrintResultsToTraceListeners();
+
+            return operation;
         }
     }
 }

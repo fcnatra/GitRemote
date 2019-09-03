@@ -3,6 +3,7 @@ using GitRemote.Domain;
 using System;
 using System.Linq;
 using GitRemote.Domain.Operations;
+using GitRemote.Services;
 
 namespace GitRemote
 {
@@ -22,16 +23,18 @@ namespace GitRemote
             }
             else
             {
-                var operation = (Operation)Enum.Parse(typeof(GitRemote.Domain.Operation), parameters.Operation);
+                var operation = (OperationType)Enum.Parse(typeof(OperationType), parameters.Operation);
                 var git = new GitClient() { OperationFactory = new OperationFactory() };
                 git.OperationParameters = parameters;
+                git.GitConnector = new GitLabApiClientConnector();
+
                 try
                 {
                     git.Run(operation);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"\r\nERROR: {ex.Message}\r\n");
+                    Console.WriteLine($"\r\nERROR: ({ex.GetType().ToString()}) {ex.Message}\r\n");
                     ShowHelp();
                 }
             }

@@ -2,6 +2,6 @@
 {
     public interface IOperationFactory
     {
-        IGitOperation CreateOperation(Operation operationToCreate);
+        IGitOperation CreateOperation(OperationType operationToCreate);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace GitRemote.Domain
 {
-    public enum Operation
+    public enum OperationType
     {
         ListProjects
     }

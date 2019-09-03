@@ -6,13 +6,13 @@ namespace GitRemote.Domain.Operations
 {
     public class OperationFactory : IOperationFactory
     {
-        public IGitOperation CreateOperation(Operation operationToCreate)
+        public IGitOperation CreateOperation(OperationType operationToCreate)
         {
             IGitOperation operation = null;
 
             switch (operationToCreate)
             {
-                case Operation.ListProjects:
+                case OperationType.ListProjects:
                     operation = new Operations.ListProjects();
                     break;
                 default:

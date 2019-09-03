@@ -10,6 +10,6 @@ namespace GitRemote.Entities
         public string GitApiUrl { get; set; }
         public string GitToken { get; set; }
         public string GroupName { get; set; }
-        public string Operation { get; internal set; }
+        public string Operation { get; set; }
     }
 }

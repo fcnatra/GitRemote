@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using GitRemote.Domain.Operations;
 using GitRemote.Services;
+using System.Diagnostics;
 
 namespace GitRemote
 {
@@ -12,6 +13,9 @@ namespace GitRemote
         private static UI _ui;
         static void Main(string[] args)
         {
+            var consoleTraceListener = new ConsoleTraceListener();
+            Trace.Listeners.Add(consoleTraceListener);
+
             _ui = new UI() { Arguments = args };
 
             Parameters parameters = _ui.ProcessArguments();

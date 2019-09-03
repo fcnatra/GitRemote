@@ -42,7 +42,7 @@ namespace GitRemote.Domain.Operations
         public void PrintResultsToTraceListeners()
         {
             foreach (var project in Result)
-                System.Diagnostics.Debug.WriteLine(project.WebUrl);
+                System.Diagnostics.Trace.WriteLine(project.WebUrl);
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using GitRemote.Domain.Operations;
 using GitRemote.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GitRemote.Domain
 {
@@ -31,8 +28,8 @@ namespace GitRemote.Domain
             operation.GitConnector = GitConnector;
             operation.OperationParameters = OperationParameters;
             operation?.Run();
-            
-            //operation?.PrintResultsToTraceListeners();
+
+            operation?.PrintResultsToTraceListeners();
 
             return operation;
         }

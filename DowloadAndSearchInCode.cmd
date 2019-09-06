@@ -1,6 +1,6 @@
 @echo off
 echo.
-echo Usage: SearchInCode TextToSearch ^< fileWithGitProjectsUrl
+echo Usage: DownloadAndSearchInCode TextToSearch ^< fileWithGitProjectsUrl
 echo     GitClient must be configured to connect to git server
 echo     Downloads all GIT projects received on pipe input and search the specified text in all of them
 
